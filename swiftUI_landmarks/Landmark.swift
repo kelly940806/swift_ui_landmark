@@ -17,7 +17,7 @@ struct Coordinates: Hashable, Codable {
 }
 
 // Codable will auto extract the key from json file
-struct Landmark: Hashable, Codable {
+struct Landmark: Hashable, Codable, Identifiable {
     var id: Int
     var name: String
     var park: String
