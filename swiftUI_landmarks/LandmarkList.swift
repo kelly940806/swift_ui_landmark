@@ -11,8 +11,21 @@ struct LandmarkList: View {
     var body: some View {
         // iterate item in landmarks
         // (extract the id attribute automatically through Identifible protocol)
-        List(landmarks) {
-            landmark in LandmarkRow(landmark: landmark)
+        NavigationSplitView {
+            List(landmarks) {
+                landmark in
+                NavigationLink {
+                    LandmarkDetail()
+                }
+                label: {
+                    LandmarkRow(landmark: landmark)
+                }
+                
+            }
+            .navigationTitle(Text("Landmarks"))
+        } detail: {
+            // detail block is required for NavigationSplitView closure (Only show in iPhone non portriat mode or other device)
+            Text("Select a landmark")
         }
     }
 }
