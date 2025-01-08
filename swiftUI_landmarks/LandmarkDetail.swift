@@ -8,32 +8,41 @@
 import SwiftUI
 
 struct LandmarkDetail: View {
+    var landmark: Landmark
     var body: some View {
-        VStack {
-            MapView()
-                .frame(height:300)
-            CircleImage()
-                .offset(y:-130)
+        // change to ScrollView to make all the content accessible (remember to remove the Spacer in the end!)
+        ScrollView {
+            MapView(coordinates: landmark.locationCoordinates)
+                .frame(height: 300)
+            CircleImage(image: landmark.image)
+                .offset(y: -130)
                 .padding(.bottom, -130)
             VStack(alignment: .leading) {
-                Text("Turtle Rock")
+                Text(landmark.name)
                     .font(.title)
                 HStack {
-                    Text("Joshua Tree National Park")
+                    Text(landmark.park)
                     Spacer()
-                    Text("California")
+                    Text(landmark.state)
                 }
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 Divider()
-                Text("About Turtle Rock").font(.title2)
-                Text("details... ")
+                // inject the variable in string
+                Text("About \(landmark.name)").font(.title2)
+                Text(landmark.description).font(.body)
             }
-        }.padding(20)
-        Spacer()
+            .padding()
+        }
+        .navigationTitle(landmark.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-#Preview {
-    LandmarkDetail()
+#Preview("Turtle Rock") {
+    LandmarkDetail(landmark: landmarks[0])
+}
+
+#Preview("Golden Gate Bridge") {
+    LandmarkDetail(landmark: landmarks[1])
 }
