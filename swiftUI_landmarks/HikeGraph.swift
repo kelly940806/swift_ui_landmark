@@ -7,6 +7,15 @@ The elevation, heart rate, and pace of a hike plotted on a graph.
 
 import SwiftUI
 
+extension Animation {
+    static func ripple(index: Int) -> Animation {
+        // Animation.default
+        Animation.spring(dampingFraction: 0.3)
+            .speed(1.5)
+            .delay(0.2 * Double(index))
+    }
+}
+
 struct HikeGraph: View {
     var hike: Hike
     var path: KeyPath<Hike.Observation, Range<Double>>
@@ -40,6 +49,7 @@ struct HikeGraph: View {
                         range: observation[keyPath: path],
                         overallRange: overallRange
                     )
+                    .animation(.ripple(index: index))
                 }
                 .offset(x: 0, y: proxy.size.height * heightRatio)
             }

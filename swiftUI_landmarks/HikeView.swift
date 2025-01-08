@@ -42,7 +42,7 @@ struct HikeView: View {
 
                 Button {
                     // A global way to add the animation for value change (affect all the animation of the view)
-                    withAnimation(.easeInOut(duration: 5.0)) {
+                    withAnimation(.easeInOut(duration: 2.0)) {
                         showDetail.toggle()
                     }
                 } label: {
