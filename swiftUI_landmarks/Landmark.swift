@@ -24,6 +24,8 @@ struct Landmark: Hashable, Codable, Identifiable {
     var state: String
     var description: String
     
+    var isFavorite: Bool = false
+    
     // prepare image from Asset with imageName of json file
     private var imageName: String
     var image: Image {
