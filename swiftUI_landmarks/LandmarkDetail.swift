@@ -40,9 +40,9 @@ struct LandmarkDetail: View {
 }
 
 #Preview("Turtle Rock") {
-    LandmarkDetail(landmark: landmarks[0])
+    LandmarkDetail(landmark: ModelData().landmarks[0])
 }
 
 #Preview("Golden Gate Bridge") {
-    LandmarkDetail(landmark: landmarks[1])
+    LandmarkDetail(landmark: ModelData().landmarks[1])
 }

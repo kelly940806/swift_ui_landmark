@@ -8,40 +8,36 @@
 import SwiftUI
 
 struct LandmarkList: View {
+    // add a env variable for oberservable variable
+    @Environment(ModelData.self) var modelData
     // add state for filter list
-    @State private var showFavoriteOnly:Bool = false
-//    var filteredLandmarks: [Landmark] {
-//        landmarks.filter { showFavoriteOnly ? $0.isFavorite : true }
-//    }
+    @State private var showFavoriteOnly: Bool = false
     var filteredLandmarks: [Landmark] {
-        landmarks.filter {
-            landmark in (!showFavoriteOnly||landmark.isFavorite)
+        modelData.landmarks.filter {
+            landmark in (!showFavoriteOnly || landmark.isFavorite)
         }
     }
-    
+
     var body: some View {
         // iterate item in landmarks
         // (extract the id attribute automatically through Identifible protocol)
         NavigationSplitView {
-            List{
+            List {
                 // add toggle for control favorite filter with binding property (should be with '$')
                 Toggle(isOn: $showFavoriteOnly) {
                     Text("Favorite Only")
                 }
-                
+
                 // revise list iteration of landmarks to add the toggle into the list area
                 ForEach(filteredLandmarks) {
                     landmark in
                     NavigationLink {
                         LandmarkDetail(landmark: landmark)
-                    }
-                    label: {
+                    } label: {
                         LandmarkRow(landmark: landmark)
                     }
                 }
-                
-                
-                
+
             }
             .animation(.default, value: filteredLandmarks)
             .navigationTitle(Text("Landmarks"))
@@ -53,5 +49,6 @@ struct LandmarkList: View {
 }
 
 #Preview {
-    LandmarkList()
+    // inject ModelData as environment variable for preview
+    LandmarkList().environment(ModelData())
 }
