@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct LandmarkDetail: View {
+    @Environment(ModelData.self) var modelData
     var landmark: Landmark
+    var landmarkIndex: Int {
+        // exclaimation remark to prevent null data
+        modelData.landmarks.firstIndex(where: {$0.id == landmark.id})!
+    }
     var body: some View {
+        @Bindable var modelData = modelData
         // change to ScrollView to make all the content accessible (remember to remove the Spacer in the end!)
         ScrollView {
             MapView(coordinates: landmark.locationCoordinates)
@@ -18,8 +24,13 @@ struct LandmarkDetail: View {
                 .offset(y: -130)
                 .padding(.bottom, -130)
             VStack(alignment: .leading) {
-                Text(landmark.name)
-                    .font(.title)
+                HStack {
+                    Text(landmark.name)
+                        .font(.title)
+                    // add '$' to pass the binding variable
+                    FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
+                    
+                }
                 HStack {
                     Text(landmark.park)
                     Spacer()
@@ -40,9 +51,13 @@ struct LandmarkDetail: View {
 }
 
 #Preview("Turtle Rock") {
-    LandmarkDetail(landmark: ModelData().landmarks[0])
+    let modelData = ModelData()
+    // return should be added when the block having multiple lines
+    return LandmarkDetail(landmark: modelData.landmarks[0]).environment(modelData)
 }
 
 #Preview("Golden Gate Bridge") {
-    LandmarkDetail(landmark: ModelData().landmarks[1])
+    let modelData = ModelData()
+    // return should be added when the block having multiple lines
+    return LandmarkDetail(landmark: modelData.landmarks[1]).environment(modelData)
 }
