@@ -14,13 +14,29 @@ struct ProfileHost: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
             HStack {
+                if editMode?.wrappedValue == .active {
+                    // restore the original data for draftProfile
+                    Button("Cancel", role: .cancel) {
+                        draftProfile = modelData.profile
+                        // change the editMode to inactive with animation
+                        editMode?.animation().wrappedValue = .inactive
+                    }
+                }
                 Spacer()
                 EditButton()
             }
             if editMode?.wrappedValue == .inactive {
                 ProfileSummary(profile: modelData.profile)
             } else {
+                // using current profile as draftProfile for editing (onAppear)
+                // save the modified draftProfile to current profile after editing (onDisppear)
                 ProfileEditor(profile: $draftProfile)
+                    .onAppear {
+                        draftProfile = modelData.profile
+                    }
+                    .onDisappear {
+                        modelData.profile = draftProfile
+                    }
             }
             
         }
