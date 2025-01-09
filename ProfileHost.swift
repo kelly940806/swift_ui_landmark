@@ -18,5 +18,5 @@ struct ProfileHost: View {
 }
 
 #Preview {
-    ProfileHost()
+    ProfileHost().environment(ModelData())
 }

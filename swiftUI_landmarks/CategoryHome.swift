@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CategoryHome: View {
     @Environment(ModelData.self) var modelData
-    
+    @State private var showProfile = false
+
     var body: some View {
         NavigationSplitView {
             List {
@@ -19,23 +20,37 @@ struct CategoryHome: View {
                     .frame(height: 200)
                     .clipped()
                     .listRowInsets(EdgeInsets())
-//                HStack {
-//                    ForEach(modelData.features) { landmark in
-//                        landmark.image
-//                            .resizable()
-//                            .frame(height: 200)
-//                            .clipped()
-//                    }
-//                }
-                ForEach(modelData.categories.keys.sorted(), id: \.self) { catgKey in
+                //                HStack {
+                //                    ForEach(modelData.features) { landmark in
+                //                        landmark.image
+                //                            .resizable()
+                //                            .frame(height: 200)
+                //                            .clipped()
+                //                    }
+                //                }
+                ForEach(modelData.categories.keys.sorted(), id: \.self) {
+                    catgKey in
                     // add the exclaimation mark to prevent items point to null
-                    CategoryRow(categoryName: catgKey, items: modelData.categories[catgKey]!)
+                    CategoryRow(
+                        categoryName: catgKey,
+                        items: modelData.categories[catgKey]!)
                 }
                 .listRowInsets(EdgeInsets())
             }
+            .listStyle(.inset)
             .navigationTitle("Featured")
-        }
-        detail: {
+            .toolbar {
+                Button {
+                    showProfile.toggle()
+                } label: {
+                    Label("User Profile", systemImage: "person.crop.circle")
+                }
+            }
+            // sheet is like the pop up modal
+            .sheet(isPresented: $showProfile) {
+                ProfileHost().environment(modelData)
+            }
+        } detail: {
             Text("Select a landmark")
         }
     }
