@@ -23,8 +23,15 @@ struct Landmark: Hashable, Codable, Identifiable {
     var park: String
     var state: String
     var description: String
-    
     var isFavorite: Bool = false
+    
+    var category: Category
+    // prepare a enum struct for category
+    enum Category: String, CaseIterable, Codable {
+        case lakes = "Lakes"
+        case rivers = "Rivers"
+        case mountains = "Mountains"
+    }
     
     // prepare image from Asset with imageName of json file
     private var imageName: String
