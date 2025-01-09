@@ -24,6 +24,7 @@ struct Landmark: Hashable, Codable, Identifiable {
     var state: String
     var description: String
     var isFavorite: Bool = false
+    var isFeatured: Bool = false
     
     var category: Category
     // prepare a enum struct for category
