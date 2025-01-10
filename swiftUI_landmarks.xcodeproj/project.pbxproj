@@ -81,6 +81,8 @@
 				hikeData.json,
 				Landmark.swift,
 				landmarkData.json,
+				LandmarkList.swift,
+				LandmarkRow.swift,
 				MapView.swift,
 				ModelData.swift,
 				Profile.swift,
