@@ -13,6 +13,11 @@ struct LandmarkList: View {
     // add state for filter list
     @State private var showFavoriteOnly: Bool = false
     @State private var filter = FilterCategory.all
+    @State private var selectedLandmark: Landmark?
+    
+    var index: Int? {
+        modelData.landmarks.firstIndex(where: {$0.id == selectedLandmark?.id})
+    }
     
     var filteredLandmarks: [Landmark] {
         modelData.landmarks.filter {
@@ -34,10 +39,12 @@ struct LandmarkList: View {
     }
 
     var body: some View {
+        // bind modelData into body
+        @Bindable var modelData = modelData
         // iterate item in landmarks
         // (extract the id attribute automatically through Identifible protocol)
         NavigationSplitView {
-            List {
+            List (selection: $selectedLandmark) {
                 // revise list iteration of landmarks to add the toggle into the list area
                 ForEach(filteredLandmarks) {
                     landmark in
@@ -46,6 +53,7 @@ struct LandmarkList: View {
                     } label: {
                         LandmarkRow(landmark: landmark)
                     }
+                    .tag(landmark)
                 }
 
             }
@@ -73,6 +81,7 @@ struct LandmarkList: View {
             // detail block is required for NavigationSplitView closure (Only show in iPhone non portriat mode or other device)
             Text("Select a landmark")
         }
+        .focusedValue(\.selectedLandmark, $modelData.landmarks[index ?? 0])
     }
 }
 
