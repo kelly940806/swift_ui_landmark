@@ -11,9 +11,13 @@ struct PageView<Page:View>: View {
     var pages: [Page]
     @State private var currentPage = 0
     var body: some View {
-        PageViewController(currentPage: $currentPage, pages: pages)
-            .aspectRatio(3/2, contentMode: .fit)
-        Text("CurrentPage \(currentPage)")
+        ZStack(alignment: .bottomTrailing) {
+            PageViewController(currentPage: $currentPage, pages: pages)
+            PageControl(numberOfPages: pages.count, currentPage: $currentPage)
+                .frame(width: CGFloat(pages.count)*18)
+                .padding(.trailing)
+        }
+        .aspectRatio(3/2, contentMode: .fit)
     }
 }
 
