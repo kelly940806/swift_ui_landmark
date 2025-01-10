@@ -41,6 +41,7 @@ struct LandmarkList: View {
             }
             .animation(.default, value: filteredLandmarks)
             .navigationTitle(Text("Landmarks"))
+            .frame(minWidth: 300.0)
         } detail: {
             // detail block is required for NavigationSplitView closure (Only show in iPhone non portriat mode or other device)
             Text("Select a landmark")
