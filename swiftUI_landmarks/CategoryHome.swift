@@ -15,19 +15,7 @@ struct CategoryHome: View {
         NavigationSplitView {
             List {
                 // using listRowInsets to cover the reserved padding
-                modelData.features[0].image
-                    .resizable()
-                    .frame(height: 200)
-                    .clipped()
-                    .listRowInsets(EdgeInsets())
-                //                HStack {
-                //                    ForEach(modelData.features) { landmark in
-                //                        landmark.image
-                //                            .resizable()
-                //                            .frame(height: 200)
-                //                            .clipped()
-                //                    }
-                //                }
+                PageView(pages: modelData.features.map{FeaturedCard(landmark: $0)}).listRowInsets(EdgeInsets())
                 ForEach(modelData.categories.keys.sorted(), id: \.self) {
                     catgKey in
                     // add the exclaimation mark to prevent items point to null
