@@ -6,10 +6,10 @@
 //
 
 import Foundation
-// especially for Image
-import SwiftUI
 // especially for CLLocationCoordinate2D
 import MapKit
+// especially for Image
+import SwiftUI
 
 struct Coordinates: Hashable, Codable {
     var latitude: Double
@@ -25,7 +25,7 @@ struct Landmark: Hashable, Codable, Identifiable {
     var description: String
     var isFavorite: Bool = false
     var isFeatured: Bool = false
-    
+
     var category: Category
     // prepare a enum struct for category
     enum Category: String, CaseIterable, Codable {
@@ -33,16 +33,21 @@ struct Landmark: Hashable, Codable, Identifiable {
         case rivers = "Rivers"
         case mountains = "Mountains"
     }
-    
+
     // prepare image from Asset with imageName of json file
     private var imageName: String
     var image: Image {
         Image(imageName)
     }
-    
+
+    var featureImage: Image? {
+        isFeatured ? Image(imageName + "_feature") : nil
+    }
+
     // prepare coordinates from coordinates of json file
     private var coordinates: Coordinates
     var locationCoordinates: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        CLLocationCoordinate2D(
+            latitude: coordinates.latitude, longitude: coordinates.longitude)
     }
 }
