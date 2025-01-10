@@ -103,17 +103,9 @@
 				MapView.swift,
 				ModelData.swift,
 				Profile.swift,
-				PushNotificationPayload.apns,
 				swiftUI_landmarksApp.swift,
 			);
 			target = 6A3356292D30D0860073BBC0 /* WatchLandmarks Watch App */;
-		};
-		6A3356DF2D30FA8D0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "swiftUI_landmarks" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				PushNotificationPayload.apns,
-			);
-			target = 6AE3E76F2D2CFC0600BD01F2 /* swiftUI_landmarks */;
 		};
 		6A3357832D31003F0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "MacLandmarks" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -124,6 +116,7 @@
 				Hike.swift,
 				hikeData.json,
 				Landmark.swift,
+				LandmarkCommands.swift,
 				landmarkData.json,
 				LandmarkList.swift,
 				LandmarkRow.swift,
@@ -170,7 +163,6 @@
 		6AE3E7722D2CFC0600BD01F2 /* swiftUI_landmarks */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				6A3356DF2D30FA8D0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "swiftUI_landmarks" target */,
 				6A3356592D30E2FD0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "WatchLandmarks Watch App" target */,
 				6A3357832D31003F0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "MacLandmarks" target */,
 			);

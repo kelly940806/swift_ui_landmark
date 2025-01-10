@@ -12,10 +12,25 @@ struct LandmarkList: View {
     @Environment(ModelData.self) var modelData
     // add state for filter list
     @State private var showFavoriteOnly: Bool = false
+    @State private var filter = FilterCategory.all
+    
     var filteredLandmarks: [Landmark] {
         modelData.landmarks.filter {
-            landmark in (!showFavoriteOnly || landmark.isFavorite)
+            landmark in (!showFavoriteOnly || landmark.isFavorite) && (filter == .all || filter.rawValue == landmark.category.rawValue)
         }
+    }
+    
+    var title: String {
+        let title = filter == .all ? "Landmarks" : filter.rawValue
+        return showFavoriteOnly ? "Favorite \(title)" : title
+    }
+    
+    enum FilterCategory: String, CaseIterable, Identifiable {
+        case all="All"
+        case lakes="Lakes"
+        case rivers = "Rivers"
+        case mountains = "Mountains"
+        var id: FilterCategory{self}
     }
 
     var body: some View {
@@ -23,11 +38,6 @@ struct LandmarkList: View {
         // (extract the id attribute automatically through Identifible protocol)
         NavigationSplitView {
             List {
-                // add toggle for control favorite filter with binding property (should be with '$')
-                Toggle(isOn: $showFavoriteOnly) {
-                    Text("Favorite Only")
-                }
-
                 // revise list iteration of landmarks to add the toggle into the list area
                 ForEach(filteredLandmarks) {
                     landmark in
@@ -40,8 +50,25 @@ struct LandmarkList: View {
 
             }
             .animation(.default, value: filteredLandmarks)
-            .navigationTitle(Text("Landmarks"))
+            .navigationTitle(Text(title))
             .frame(minWidth: 300.0)
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        Picker("Category", selection: $filter) {
+                            ForEach(FilterCategory.allCases) {category in
+                                Text(category.rawValue).tag(category)
+                            }
+                        }
+                        .pickerStyle(.inline)
+                        Toggle(isOn: $showFavoriteOnly) {
+                            Label("Favorites only", systemImage: "star.fill")
+                        }
+                    } label: {
+                        Label("Filter", systemImage: "slider.horizontal.3")
+                    }
+                }
+            }
         } detail: {
             // detail block is required for NavigationSplitView closure (Only show in iPhone non portriat mode or other device)
             Text("Select a landmark")
