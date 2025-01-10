@@ -115,6 +115,25 @@
 			);
 			target = 6AE3E76F2D2CFC0600BD01F2 /* swiftUI_landmarks */;
 		};
+		6A3357832D31003F0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "MacLandmarks" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				CircleImage.swift,
+				FavoriteButton.swift,
+				Hike.swift,
+				hikeData.json,
+				Landmark.swift,
+				landmarkData.json,
+				LandmarkList.swift,
+				LandmarkRow.swift,
+				MapView.swift,
+				ModelData.swift,
+				Profile.swift,
+				swiftUI_landmarksApp.swift,
+			);
+			target = 6A3357562D30FDE20073BBC0 /* MacLandmarks */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -153,6 +172,7 @@
 			exceptions = (
 				6A3356DF2D30FA8D0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "swiftUI_landmarks" target */,
 				6A3356592D30E2FD0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "WatchLandmarks Watch App" target */,
+				6A3357832D31003F0073BBC0 /* Exceptions for "swiftUI_landmarks" folder in "MacLandmarks" target */,
 			);
 			path = swiftUI_landmarks;
 			sourceTree = "<group>";
